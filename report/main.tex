@@ -9,11 +9,11 @@
 \date{\today}
 \maketitle
 
-\section{Introduction}
+\section{AUTO GENERATED, DO NOT CONSIDER}
 
 Insert your introduction here.
 
-\section{Section 1}
+\section{Problem}
 
 This problem can be modeled as a mixed integer linear programming (MILP) problem, where we need to decide which 
 farms to locate the plants at and which farms to assign to each plant as suppliers.
@@ -22,6 +22,8 @@ Let's define the following variables:
 \begin{itemize}
     \item $x_i$: binary variable that is 1 if a plant is located at farm $i$ and 0 otherwise.
     \item  $y_{i,j}$: binary variable that is 1 if farm $j$ supplies corn chopping to farm $i$ and 0 otherwise.
+    \item  $z_{i,j}$: binary variable that is 1 if farm $j$ supplies corn chopping to farm $i$ and 0 otherwise.
+
 \end{itemize}
 
 The objective function is to maximize the total revenues of the association, which is the sum of the revenues from each plant. The revenue from each plant is equal to the energy produced by the plant multiplied by the unitary price of energy. The energy produced by each plant is equal to the sum of the energy produced by each ton of corn chopping burned, multiplied by the number of tons of corn chopping burned.
