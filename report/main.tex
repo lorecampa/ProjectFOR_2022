@@ -4,25 +4,21 @@
 
 \begin{document}
 
-\title{My Document}
-\author{Author Name}
+\title{Biogas Location (Big Lab Project)}
+\author{Lorenzo Campana, Sandro D'Andrea}
 \date{\today}
 \maketitle
 
-\section{AUTO GENERATED, DO NOT CONSIDER}
-
-Insert your introduction here.
-
-\section{Problem}
-
+\section{Introduction}
 This problem can be modeled as a mixed integer linear programming (MILP) problem, where we need to decide which 
 farms to locate the plants at and which farms to assign to each plant as suppliers.
 
+\section{Problem}
 Let's define the following variables:
 \begin{itemize}
     \item $x_i$: binary variable that is 1 if a plant is located at farm $i$ and 0 otherwise.
     \item  $y_{i,j}$: binary variable that is 1 if farm $j$ supplies corn chopping to farm $i$ and 0 otherwise.
-    \item  $z_{i,j}$: binary variable that is 1 if farm $j$ supplies corn chopping to farm $i$ and 0 otherwise.
+    \item  $z_{i,j}$: variable that represent the number of tons of corn choppings that farm $j$ supplies to farm $i$.
 
 \end{itemize}
 
@@ -30,25 +26,25 @@ The objective function is to maximize the total revenues of the association, whi
 
 Therefore, the objective function can be written as:
 
-$$\text{maximize} \sum_{i=1}^n Q \cdot b \cdot x_i \cdot \sum_{j=1}^n y_{i,j} \cdot a_j$$
+$$\text{maximize} \sum_{i=1}^n \sum_{j=1}^n (Q \cdot b \cdot z_{i,j} - y_{i,j} \cdot d_{i,j})$$
 
 We need to add constraints to ensure that each farm can 
-only be assigned to at most one plant, and that each farm can only supply corn chopping to at most one plant. We can add these constraints as follows:
+only be assigned to at most one plant, and that each farm can only supply corn chopping to at most one plant. 
+We can add these constraints as follows:
 
-$$\sum_{i=1}^n x_i \leq p$$
+$$\sum_{i=1}^n x_i = p$$
 
 $$\sum_{i=1}^n y_{i,j} \leq 1 \quad \forall j$$
 
+$$ z_{i,j} \leq y_{i,j} \cdot c_j \quad \forall i \quad \forall j$$
 $$\sum_{j=1}^n y_{i,j} \leq 1 \quad \forall i$$
 
 We also need to ensure that the percentage of dry matter of the corn chopping burned at each plant is within the required range. We can add this constraint as follows:
 
-$$k_{min} \leq \frac{\sum_{j=1}^n y_{i,j} \cdot a_j}{\sum_{j=1}^n y_{i,j}} \leq k_{max} \quad \forall i$$
+$$k_{min} \leq \frac{\sum_{j=1}^n z_{i,j} \cdot a_j}{\sum_{j=1}^n z_{i,j}} \leq k_{max} \quad \forall i$$
 
 Finally, we need to ensure that each plant does not produce more than the maximum allowed amount of energy. We can add this constraint as follows:
 
-$$\sum_{j=1}^n y_{i,j} \cdot Q \leq M \quad \forall i$$
-
-This MILP can be solved using an off-the-shelf MILP solver, such as Gurobi or CPLEX. The solution will give us the optimal placement and assignment of the plants and the corn chopping suppliers.
+$$\sum_{j=1}^n z_{i,j} \cdot Q \leq M \quad \forall i$$
 
 \end{document}
