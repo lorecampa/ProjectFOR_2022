@@ -14,6 +14,27 @@ This problem can be modeled as a mixed integer linear programming (MILP) problem
 farms to locate the plants at and which farms to assign to each plant as suppliers.
 
 \section{Problem}
+An association of $n$ farmers wants to open $p$ plants to produce energy from biogas.
+Each plant will be opened at a farm of a member of the association and will be powered with corn chopping purchased from the farm itself or from other neighboring farms.
+Each farm $i$ can provide at most $c_i$ tons of corn chopping, with a percentage of dry matter $a_i$. As you may know, dry matter is the key component of corn chopping used for biogas production. In order to maintain the quality of produced energy, each plant must burn a mixture of corn chopping with a percentage of dry matter between $k_{min}$ and $k_{max}$.
+At most one plant can be located in each farm, and every farm can sell its corn chopping to one and only one plant.
+Each farm $i$ is located at coordinates $x_i$ and $y_i$, representing respectively its latitude and longitude, and the cost of moving corn chopping from a farm $i$ to a farm $j$ is proportional to the euclidean distance between the two farms (it does not depend on the actual quantity moved, since the trucks used for this transportations are sufficiently big).
+Under such conditions, every plant produces $Q$ kWh of energy per ton of corn chopping burned. The energy produced by each plant will be fed into the national electricity system, at a unitary price of $b$ (€/kWh). Moreover, due to state regulations, each plant must not produce more than $M$ kWh of energy.
+You must locate $p$ plants among the available farms and assign the farms that will supply each plant, with the goal of maximizing the total revenues of the association.
+Let's define problem set and parameters:
+\begin{itemize}
+    \item $I$ = set of farms
+    \item $n$ = number of farms
+    \item $p$ = number of plants to locate
+    \item $b$ = revenue per unit of energy (€/kWh)
+    \item $M$ = max energy production (kWh)
+    \item $Q$ = energy produced by a ton of corn chopping (kWh/t)
+    \item $k_{min} (k_{max})$ = min (max) percentage of dry matter for fermentation
+    \item $a_i$ = percentage of dry matter in chopping from farm $i \in I$
+    \item $c_i$ = tons of corn chopping available for each $i \in I$ (t)
+    \item $x_i, y_i$ = coordinates of farm $i \in I$
+\end{itemize}
+
 Let's define the following variables:
 \begin{itemize}
     \item $x_i$: binary variable that is 1 if a plant is located at farm $i$ and 0 otherwise.
